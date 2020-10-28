@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 from matplotlib.pyplot import *
 from numpy import *
 import numpy as np
@@ -5,7 +6,7 @@ import control
 from control import TransferFunction as TF
 import copy
 
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 
 font_size = 20.0
 
