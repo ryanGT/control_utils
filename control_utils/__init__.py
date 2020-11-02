@@ -6,7 +6,7 @@ import control
 from control import TransferFunction as TF
 import copy
 
-__version__ = '1.0.1'
+__version__ = '1.0.2'
 
 font_size = 20.0
 
@@ -151,6 +151,11 @@ def TF_to_factored_latex(G,lhs=None,substr=None):
         return out_str
     else:
         return rhs
+
+
+def print_factored_latex_for_TF(G, **kwargs):
+    mystr = TF_to_factored_latex(G, **kwargs)
+    print(mystr)
     
     
 def build_TF(poles=[], zeros=[]):
