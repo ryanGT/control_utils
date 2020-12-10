@@ -6,7 +6,7 @@ import control
 from control import TransferFunction as TF
 import copy
 
-__version__ = '1.0.2'
+__version__ = '1.0.4'
 
 font_size = 20.0
 
@@ -174,9 +174,9 @@ def build_TF(poles=[], zeros=[]):
     return G
     
     
-def root_locus_plot(G, k=None, xlim=None, ylim=None):
+def root_locus_plot(G, k=None, xlim=None, ylim=None, fmtstr='-'):
     rmat, kout = control.root_locus(G, k, Plot=False)
-    plot(real(rmat), imag(rmat))
+    plot(real(rmat), imag(rmat), fmtstr)
     poles = G.pole()
     plot(real(poles), imag(poles), 'x')
     zeros = G.zero()
@@ -188,7 +188,10 @@ def root_locus_plot(G, k=None, xlim=None, ylim=None):
         plt.ylim(ylim)
     
 
-
+def add_point_to_root_locus(G, k, fmtstr='^'):
+    rmat, kout = control.root_locus(G, [k], Plot=False)
+    plot(real(rmat), imag(rmat), fmtstr)
+    
 def TF_mag(G, s1):
     """Find the magnitude of transfer function G at point s1.  G is
     expected to be a control.TransferFunction instance."""
