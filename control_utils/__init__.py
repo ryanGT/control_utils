@@ -6,7 +6,7 @@ import control
 from control import TransferFunction as TF
 import copy
 
-__version__ = '1.0.4'
+__version__ = '1.0.5'
 
 font_size = 20.0
 
@@ -191,7 +191,23 @@ def root_locus_plot(G, k=None, xlim=None, ylim=None, fmtstr='-'):
 def add_point_to_root_locus(G, k, fmtstr='^'):
     rmat, kout = control.root_locus(G, [k], Plot=False)
     plot(real(rmat), imag(rmat), fmtstr)
+
+
+def plot_zeta_line(z, r=50, fmtstr='k:'):
+    """Plot radial lines for a constant zeta"""
+    th = np.arcsin(z)
+    y_z = r*np.cos(th)
+    x_z = -r*z
+    plt.plot([0,x_z],[0,y_z],fmtstr)
+    plt.plot([0,x_z],[0,-y_z],fmtstr)
+
+
+def plot_z_wn_line(zwn, fmtstr='b--'):
+    """Plot a vertical line through zwn which is the zeta*wn product."""
+    my_y = plt.ylim()
+    plt.plot([zwn,zwn],my_y,fmtstr)
     
+
 def TF_mag(G, s1):
     """Find the magnitude of transfer function G at point s1.  G is
     expected to be a control.TransferFunction instance."""
@@ -203,28 +219,36 @@ def TF_mag(G, s1):
 
 
 
-def plot_settling_lines(fignum, p=2.0, plotstr='k--'):
+def plot_settling_lines(p=2.0, plotstr='k--'):
     """Plot lines of +/-p% to help determine the settling time of a
     step response."""
-    figure(fignum)
-    myx = xlim()
+    #figure(fignum)
+    myx = plt.xlim()
     p2 = float(p)/100
     plot(myx, [1.0-p2,1.0-p2], plotstr, label=None)
     plot(myx, [1.0+p2,1.0+p2], plotstr, label=None)
-    
 
-def draw_constant_zeta_lines(fignum, z, r=100):
-    figure(fignum)
+
+def plot_overshoot_line(p=10.0, plotstr='r--'):
+    """Plot a line for p % overshoot."""
+    #figure(fignum)
+    myx = plt.xlim()
+    p2 = float(p)/100
+    plot(myx, [1.0+p2,1.0+p2], plotstr, label=None)
+
+
+def plot_constant_zeta_lines(z, r=100):
+    #figure(fignum)
     x = -sin(z)*r
     y = cos(z)*r
     plot([0,x],[0,y],'k--', label=None)
     plot([0,x],[0,-y],'k--', label=None)
     
 
-def plot_sigma_line(fignum, sig, plotstr='k-.'):
+def plot_sigma_line(sig, plotstr='k-.'):
     """Plot lines of s=-sig on a root locus to help determine the
-    settling time of a step response."""
-    figure(fignum)
+    settling time of a step response.  Note: sig=zeta*wn"""
+    #figure(fignum)
     myy = ylim()
     plot([-sig,-sig], myy, plotstr, label=None)
 
