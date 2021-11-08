@@ -6,7 +6,7 @@ import control
 from control import TransferFunction as TF
 import copy
 
-__version__ = '1.0.5'
+__version__ = '1.1.0'
 
 font_size = 20.0
 
@@ -175,7 +175,7 @@ def build_TF(poles=[], zeros=[]):
     
     
 def root_locus_plot(G, k=None, xlim=None, ylim=None, fmtstr='-'):
-    rmat, kout = control.root_locus(G, k, Plot=False)
+    rmat, kout = control.root_locus(G, k, plot=False)
     plot(real(rmat), imag(rmat), fmtstr)
     poles = G.pole()
     plot(real(poles), imag(poles), 'x')
@@ -189,7 +189,7 @@ def root_locus_plot(G, k=None, xlim=None, ylim=None, fmtstr='-'):
     
 
 def add_point_to_root_locus(G, k, fmtstr='^'):
-    rmat, kout = control.root_locus(G, [k], Plot=False)
+    rmat, kout = control.root_locus(G, [k], plot=False)
     plot(real(rmat), imag(rmat), fmtstr)
 
 

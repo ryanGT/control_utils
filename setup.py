@@ -5,7 +5,7 @@ import setuptools
 
 setuptools.setup(
     name='control_utils',    # This is the name of your PyPI-package.
-    version='1.0.5',
+    version='1.1.0',
     url='https://github.com/ryanGT/control_utils',
     author='Ryan Krauss',
     author_email='ryanwkrauss@gmail.com',
